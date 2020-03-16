@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Lab2igen</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="fraction_message">Now in fragment!</string>
+    <string name="static_message">This is your plan for today: </string>
+
+    <string-array name="Weekdays">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string-array name="Todo">
+        <item>Clean room</item>
+        <item>Workout</item>
+        <item>Drive the car into sunset</item>
+        <item>Hang out with friends</item>
+        <item>Watch Netflix</item>
+        <item>Watch Mello</item>
+        <item>Run a mile</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
