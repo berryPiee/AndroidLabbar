@@ -41,7 +41,7 @@ public class DetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DetailFragment newInstance(String groupName) {
+    static DetailFragment newInstance(String groupName) {
 
         Bundle args = new Bundle();
         DetailFragment fragment = new DetailFragment();
@@ -56,10 +56,12 @@ public class DetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mQueue = Volley.newRequestQueue(mainAct);
-        group = new Group(getArguments().getString("groupName"), new ArrayList<Member>());
-        System.out.println(group.getGroupName()+ "****************");
-        if (getArguments() != null) {
-            jsonParse();
+
+        if (getArguments() != null){
+            group = new Group(getArguments().getString("groupName"), new ArrayList<Member>());
+        }
+        else{
+            group = new Group("         Press group to show memebers", new ArrayList<Member>());
         }
     }
 
@@ -69,6 +71,10 @@ public class DetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         textView = view.findViewById(R.id.text_view_members);
+
+        if (getArguments() != null) {
+            jsonParse(group.getGroupName());
+        }
 
         return view;
     }
@@ -90,9 +96,9 @@ public class DetailFragment extends Fragment {
         mainAct = null;
     }
 
-    private void jsonParse() {
+    private void jsonParse(String groupName) {
         final Gson gson = new Gson();
-        String url = "https://tddd80server.herokuapp.com/medlemmar/" + group.getGroupName();
+        String url = "https://tddd80server.herokuapp.com/medlemmar/" + groupName;
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -119,5 +125,12 @@ public class DetailFragment extends Fragment {
             }
         });
         mQueue.add(request);
+    }
+
+    public void updateGroup(String groupName) {
+        textView.setText("");
+        group.setGroupName(groupName);
+        group.resetMemebers();
+        jsonParse(groupName);
     }
 }

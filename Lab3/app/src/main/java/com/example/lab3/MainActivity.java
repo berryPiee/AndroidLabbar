@@ -15,12 +15,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         detailFragment = new DetailFragment();
         listFragment = new ListFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         if(findViewById(R.id.container_port) != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.container_port, listFragment).commit();
         }
         else{
@@ -36,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIn
             detailFragment = DetailFragment.newInstance(groupName);
             getSupportFragmentManager().beginTransaction().replace(R.id.container_port, detailFragment).
                     addToBackStack(null).commit();
+        }
+        else{
+            detailFragment.updateGroup(groupName);
         }
     }
 }

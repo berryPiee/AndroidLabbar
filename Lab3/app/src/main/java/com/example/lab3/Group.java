@@ -1,5 +1,6 @@
 package com.example.lab3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
@@ -11,12 +12,20 @@ public class Group {
         this.members = members;
     }
 
+    public void setGroupName(String groupName){
+        this.groupName = groupName;
+    }
+
     public String getGroupName() {
         return groupName;
     }
 
     public void addMember(Member member) {
         members.add(member);
+    }
+
+    public void resetMemebers(){
+        members = new ArrayList<>();
     }
 
     public List<Member> getMembers() {

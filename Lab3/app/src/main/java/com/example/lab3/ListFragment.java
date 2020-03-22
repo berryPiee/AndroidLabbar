@@ -38,7 +38,7 @@ public class ListFragment extends Fragment {
     private RequestQueue mQueue;
     private Context mainAct;
     private OnInteractionListener listener;
-    private GroupList groupList = new GroupList();
+    private GroupList groupList;
     private ArrayAdapter<String> adapter;
 
     public ListFragment() {
@@ -52,8 +52,9 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("ONCREATE called");
         mQueue = Volley.newRequestQueue(mainAct);
-        jsonParse();
+        groupList = new GroupList();
     }
 
     @Override
@@ -77,13 +78,14 @@ public class ListFragment extends Fragment {
                 listener.getGroupMembers(groupList.getGrupper().get(position));
             }
         });
-
+        jsonParse();
         return view;
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        System.out.println("OnATTACH CALLED" + context.getApplicationInfo());
         if(context instanceof MainActivity) {
             mainAct = (MainActivity)context;
             listener = (OnInteractionListener) context;
@@ -104,7 +106,6 @@ public class ListFragment extends Fragment {
     private void jsonParse(){
         final Gson gson = new Gson();
         String url = "https://tddd80server.herokuapp.com/grupper";
-        System.out.println("INNE I FUNKTION");
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -112,9 +113,7 @@ public class ListFragment extends Fragment {
                         try {
                             JSONArray jsonArray = response.getJSONArray("grupper");
                             for (int i = 0; i <jsonArray.length() ; i++) {
-                                System.out.println(jsonArray.getString(i)+"############");
                                 groupList.addGroup(jsonArray.getString(i));
-                                System.out.println(groupList.getGrupper().get(i)+ "*****************");
                             }
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -128,6 +127,5 @@ public class ListFragment extends Fragment {
             }
         });
         mQueue.add(request);
-        System.out.println(groupList.getGrupper() + "UTANFÖÖÖÖÖR");
     }
 }

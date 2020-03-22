@@ -5,18 +5,18 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupList {
+class GroupList {
     @SerializedName("grupper")
     private List<String> grupper = new ArrayList<>();
 
-    public GroupList() {
+    GroupList() {
     }
 
-    public List<String> getGrupper() {
+    List<String> getGrupper() {
         return grupper;
     }
 
-    public void addGroup(String group) {
+    void addGroup(String group) {
         grupper.add(group);
     }
 }
